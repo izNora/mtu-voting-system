@@ -2083,7 +2083,7 @@ def submit_ballot(
             'success': True,
             'ok': True,
             'submitted': True,
-            'message': 'Ballot submitted successfully. Your votes can no longer be edited.',
+            'message': 'Your votes can no longer be edited.',
         })
 
     except HTTPException:

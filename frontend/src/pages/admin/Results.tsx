@@ -29,7 +29,7 @@ interface ResultsResponse {
 const MEDALS = [
   { label: "1st", ring: "ring-amber-300", chip: "bg-amber-100 text-amber-700", bar: "bg-amber-400" },
   { label: "2nd", ring: "ring-slate-300", chip: "bg-slate-100 text-slate-600", bar: "bg-slate-400" },
-  { label: "3rd", ring: "ring-orange-300", chip: "bg-orange-100 text-orange-700", bar: "bg-orange-400" },
+  { label: "3rd", ring: "ring-rose-300", chip: "bg-rose-100 text-rose-700", bar: "bg-rose-400" },
 ];
 
 const Results: React.FC = () => {
@@ -148,14 +148,14 @@ const Results: React.FC = () => {
       );
       const data: ResultsResponse = await response.json();
       if (!response.ok) {
-        setError(data.detail || "Unable to save title recipients.");
+        setError(data.detail || "Unable to save title candidates.");
         return;
       }
 
-      setMessage("Title recipients were confirmed successfully.");
+      setMessage("Title candidates were confirmed successfully.");
       await loadResults();
     } catch {
-      setError("Network error while saving title recipients.");
+      setError("Network error while saving title candidates.");
     } finally {
       setSubmitting(false);
     }
@@ -188,14 +188,14 @@ const Results: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setConfirmOpen(false)}
-                className="flex-1 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50"
+                className="flex-1 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-600 hover:bg-[hsl(265_90%_98%)]"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={() => void submitSelections()}
-                className="flex-1 rounded-xl bg-[hsl(265_70%_45%)] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[hsl(265_70%_40%)]"
+                className="flex-1 rounded-xl green-bg opacity-73 px-4 py-2.5 text-sm font-semibold text-white hover:opcity-80"
               >
                 Confirm results
               </button>
@@ -225,7 +225,7 @@ const Results: React.FC = () => {
                   className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
                     finalized
                       ? "bg-emerald-100 text-emerald-700"
-                      : "bg-[hsl(265_50%_95%)] text-[hsl(265_60%_40%)]"
+                      : "bg-muted text-muted-foreground"
                   }`}
                 >
                   {finalized ? "Official" : "Draft"}
@@ -303,8 +303,8 @@ const Results: React.FC = () => {
                           onClick={() => updateSelection(title.title_id, candidate.c_id)}
                           className={`w-full rounded-xl border p-3 text-left transition-all ${
                             isSelected
-                              ? "border-[hsl(265_60%_70%)] bg-white ring-2 ring-[hsl(265_60%_90%)]"
-                              : "border-[hsl(265_10%_90%)] bg-white/60 hover:border-[hsl(265_30%_75%)] hover:bg-white"
+                              ? "border-[oklch(45%_0.07_180)] bg-white ring-2 ring-[oklch(95%_0.02_180)]"
+                              : "border-[hsl(265_10%_90%)] bg-white/60 hover:border-[oklch(65%_0.06_180)] hover:bg-white"
                           }`}
                         >
                           <div className="flex items-center gap-3">
@@ -328,7 +328,7 @@ const Results: React.FC = () => {
                             <span
                               className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${
                                 isSelected
-                                  ? "border-[hsl(265_70%_45%)] bg-[hsl(265_70%_45%)]"
+                                  ? "border-[oklch(37%_0.067_180)] green-bg"
                                   : "border-slate-300"
                               }`}
                             >
@@ -371,9 +371,9 @@ const Results: React.FC = () => {
               type="button"
               disabled={!allSelected || submitting}
               onClick={() => setConfirmOpen(true)}
-              className="rounded-xl bg-[hsl(265_70%_45%)] px-6 py-3 text-sm font-bold text-white hover:bg-[hsl(265_70%_40%)] disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-xl green-bg px-6 py-3 text-sm font-bold text-white hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {submitting ? "Submitting..." : "Submit Selected Recipients"}
+              {submitting ? "Announcing..." : "Announce winners"}
             </button>
           </div>
         )}

@@ -10,8 +10,6 @@ interface SubmittedVote {
   candidate_number: number;
   candidate_name: string;
   major?: string;
-  // Optional — falls back to an initial badge when the backend doesn't send one.
-  photo_url?: string;
 }
 
 interface BallotResponse {
@@ -20,10 +18,6 @@ interface BallotResponse {
   success?: boolean;
   valid?: boolean;
   detail?: string;
-}
-
-function getInitial(name: string) {
-  return name?.trim()?.charAt(0)?.toUpperCase() || '?';
 }
 
 export default function VoteResult() {
@@ -133,7 +127,7 @@ export default function VoteResult() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6 px-4 py-14 pt-28">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6 px-4 py-14 pt-26">
 
         {/* Receipt */}
         <div className="relative w-full max-w-[420px]">
@@ -143,7 +137,7 @@ export default function VoteResult() {
           >
             {/* Masthead */}
             <div className="text-center">
-              <p className="text-lg font-bold tracking-wide">MTU SCIENCE & TECH CLUB</p>
+              <p className="text-lg font-bold tracking-wide">FRESHER'S WELCOME</p>
               <p className="mt-1 text-[10px] tracking-[0.25em] text-[#1c1a16]/50">
                 VOTING SELECTIONS
               </p>
@@ -163,18 +157,10 @@ export default function VoteResult() {
             <div className="mt-4 space-y-4">
               {submittedVotes.map((vote) => (
                 <div key={vote.title} className="flex items-center gap-3">
-                  {vote.photo_url ? (
-                    <img
-                      src={vote.photo_url}
-                      alt={vote.candidate_name}
-                      crossOrigin="anonymous"
-                      className="h-10 w-10 shrink-0 rounded-full border border-[#1c1a16]/20 object-cover"
-                    />
-                  ) : (
+                  
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#1c1a16]/20 bg-[#1c1a16]/5 text-sm font-bold">
-                      {getInitial(vote.candidate_name)}
+                      {vote.candidate_number}
                     </div>
-                  )}
 
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[10px] uppercase tracking-wide text-[#1c1a16]/50">
@@ -220,7 +206,7 @@ export default function VoteResult() {
           type="button"
           onClick={() => void handleDownload()}
           disabled={downloading}
-          className="flex items-center gap-2 rounded-xl green-bg px-5 py-2.5 text-sm font-semibold text-white hover:bg-green-600 disabled:opacity-50"
+          className="flex items-center gap-2 rounded-xl green-bg px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-50"
         >
           <Download className="w-4 h-4" />
           {downloading ? 'Preparing...' : 'Download Your Selections'}

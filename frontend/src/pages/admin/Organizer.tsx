@@ -312,14 +312,9 @@ const Organizer: React.FC = () => {
         {/* Event Selection & Control Panel */}
         <div className="bg-white border border-[hsl(265_10%_90%)] rounded-2xl p-6 shadow-xl space-y-5">
           <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-[hsl(265_10%_50%)] mb-1">
-                {eventTarget ? eventTarget.name : 'Loading event…'}
-              </p>
               <h2 className="font-serif font-bold text-xl text-[hsl(265_30%_15%)]">
                 {festivalStatus ? `${festivalStatus.major} Event — ${festivalStatus.year}` : '\u00A0'}
               </h2>
-            </div>
 
             {!isLoadingStatus && festivalStatus && (
               <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-semibold ${meta.pill}`}>
@@ -335,7 +330,7 @@ const Organizer: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setLocation(`/admin/results?target_id=${encodeURIComponent(selectedTargetId)}`)}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[hsl(265_70%_45%)] text-white font-bold text-sm hover:opacity-90 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl green-bg text-white font-bold text-sm hover:opacity-80 transition-all"
               >
                 View results
               </button>
@@ -456,7 +451,7 @@ const Organizer: React.FC = () => {
                 className="flex items-center gap-2 px-6 py-3 rounded-xl green-bg text-white font-bold text-sm hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isGeneratingQR ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
-                {isGeneratingQR ? 'Generating…' : 'Generate missing QR codes'}
+                {isGeneratingQR ? 'Generating…' : 'Generate QR codes'}
               </button>
               {qrMessage && (
                 <p className="text-sm text-[hsl(265_30%_25%)]">{qrMessage}</p>

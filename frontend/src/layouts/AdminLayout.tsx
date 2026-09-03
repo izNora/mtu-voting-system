@@ -54,7 +54,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all
                     ${
                       active
-                        ? 'bg-primary/10 text-primary'
+                        ? 'bg-[oklch(95%_0.02_180)] text-[oklch(45%_0.07_180)]'
                         : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                     }`}
                   >
@@ -88,13 +88,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {/* Mobile menu */}
         <AnimatePresence>
           {mobileOpen && (
+            <div className="sm:hidden absolute top-full right-6 pt-2 flex justify-end">
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-card border-t border-border overflow-hidden"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.15, ease: "easeOut" }}
+              className="glass-panel rounded-lg border border-white/10 shadow-lg overflow-hidden w-fit"
             >
-              <nav className="px-6 py-4 space-y-1">
+              <nav className="flex flex-col items-start px-4 py-2 gap-1">
                 {navItems.map(item => {
                   const active = location === item.path;
 
@@ -105,7 +107,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium
                       ${
                         active
-                          ? 'bg-primary/10 text-primary'
+                          ? 'bg-[oklch(95%_0.02_180)] text-[oklch(45%_0.07_180)]'
                           : 'text-muted-foreground hover:bg-muted'
                       }`}
                     >
@@ -124,6 +126,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </button>
               </nav>
             </motion.div>
+            </div>
           )}
         </AnimatePresence>
       </header>
