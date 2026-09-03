@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pymysql
+python-dotenv
+python-multipart
+qrcode[pil]
+argon2-cffi
+itsdangerous
+tzdata

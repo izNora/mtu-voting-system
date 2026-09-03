@@ -1,0 +1,35 @@
+MTU VOTING SYSTEM - 200 USER LOAD TEST (CURRENT API)
+
+1. USE A TEST DATABASE ONLY.
+   Create/import the current schema from database.sql into voting_system_test.
+
+2. In backend/.env set exactly:
+   TOKEN_PEPPER=LOAD_TEST_ONLY_PEPPER_2026_CHANGE_ME
+
+3. Seed/reset the fixture:
+   mysql -u YOUR_USER -p voting_system_test < load_test_seed_200.sql
+
+   The seed is rerunnable. It resets only test target major_id=9001 and creates:
+   - 1 running festival (status=1)
+   - 6 current built-in titles
+   - 12 candidates (6 boy, 6 girl)
+   - 200 unused student voter QRs
+
+4. Start/restart FastAPI using the TEST database and the TOKEN_PEPPER above.
+
+5. From the backend directory run:
+   python load_test_200_users.py
+
+   Current frontend/API flow tested per voter:
+   POST /api/voter/qr/verify
+   GET  /api/voter/session?voter_id=...
+   GET  /api/voter/ballot?voter_id=...
+   POST /api/voter/submit?voter_id=...
+
+6. To test again, rerun load_test_seed_200.sql first because successful ballots are final.
+
+Optional:
+   python load_test_200_users.py --base-url http://127.0.0.1:8000 --users 200 --timeout 30
+
+Output:
+   load_test_report.json
